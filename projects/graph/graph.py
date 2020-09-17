@@ -2,44 +2,69 @@
 Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
+from collections import deque
+
 
 class Graph:
-
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
         self.vertices = {}
+
+    def __str__(self):
+        return str(self.vertices)
 
     def add_vertex(self, vertex_id):
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id] if vertex_id in self.vertices else set()
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        visited = set()
+        q = deque()
+        q.append(starting_vertex)
+        while len(q) > 0:
+            cur = q.popleft()
+            if cur not in visited:
+                visited.add(cur)
+                print(cur)
+                for neighbor in self.get_neighbors(cur):
+                    q.append(neighbor)
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        visited = set()
+        s = deque()
+        s.append(starting_vertex)
+        while len(s) > 0:
+            cur = s.pop()
+            if cur not in visited:
+                visited.add(cur)
+                print(cur)
+                for neighbor in self.get_neighbors(cur):
+                    s.append(neighbor)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -75,6 +100,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
