@@ -44,10 +44,11 @@ class Graph:
         q.append(starting_vertex)
         while len(q) > 0:
             cur = q.popleft()
+            neighbors = self.get_neighbors(cur)
             if cur not in visited:
                 visited.add(cur)
                 print(cur)
-                for neighbor in self.get_neighbors(cur):
+                for neighbor in neighbors:
                     q.append(neighbor)
 
     def dft(self, starting_vertex):
@@ -60,10 +61,11 @@ class Graph:
         s.append(starting_vertex)
         while len(s) > 0:
             cur = s.pop()
+            neighbors = self.get_neighbors(cur)
             if cur not in visited:
                 visited.add(cur)
                 print(cur)
-                for neighbor in self.get_neighbors(cur):
+                for neighbor in neighbors:
                     s.append(neighbor)
 
     def dft_recursive(self, starting_vertex, visited=set()):
