@@ -34,9 +34,9 @@ def earliest_ancestor(ancestors, starting_node):
 def create_graph(ancestors):
     g = {}
     for edge in ancestors:
-        origin, destination = edge[1], edge[0]
-        if origin in g:
-            g[origin].add(destination)
+        parent, child = edge[0], edge[1]
+        if child in g:
+            g[child].add(parent)
         else:
-            g[origin] = {destination}
+            g[child] = {parent}
     return g
