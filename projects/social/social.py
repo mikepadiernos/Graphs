@@ -76,17 +76,17 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         visited = {}  # Note that this is a dictionary, not a set
-        queue = deque()
-        queue.append([user_id])
-        while len(queue) > 0:
-            cur_path = queue.popleft()
+        friends = deque()
+        friends.append([user_id])
+        while len(friends) > 0:
+            cur_path = friends.popleft()
             cur_vertex = cur_path[-1]
             if cur_vertex not in visited:
                 visited[cur_vertex] = cur_path
                 for friend in self.friendships[cur_vertex]:
                     new_path = cur_path.copy()
                     new_path.append(friend)
-                    queue.append(new_path)
+                    friends.append(new_path)
         return visited
 
 
