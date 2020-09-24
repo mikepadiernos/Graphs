@@ -61,7 +61,7 @@ class SocialGraph:
         random.shuffle(possible_friendships)
 
         # Select the first num_users * avg_friendships / 2
-        # We / 2 because a friendship is a bi-directional edge (we're essentially adding two edges)
+        # We / 2 because a friendship is a bidirectional edge (we're essentially adding two edges)
         for i in range(0, math.floor(num_users * avg_friendships / 2)):
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
