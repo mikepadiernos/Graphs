@@ -46,9 +46,10 @@ class Graph:
         while len(queue) > 0:
             curr_node = queue.popleft()
             if curr_node not in visited:
+                neighbors = self.get_neighbors(curr_node)
                 visited.add(curr_node)
                 print(curr_node)
-                for neighbor in self.vertices[curr_node]:
+                for neighbor in neighbors:
                     queue.append(neighbor)
 
     def dft(self, starting_vertex):
@@ -58,19 +59,19 @@ class Graph:
         while len(stack) > 0:
             curr_node = stack.pop()
             if curr_node not in visited:
+                neighbors = self.get_neighbors(curr_node)
                 visited.add(curr_node)
                 print(curr_node)
-                for neighbor in self.vertices[curr_node]:
+                for neighbor in neighbors:
                     stack.append(neighbor)
 
-    def dft_recursive(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-
-        This should be done using recursion.
-        """
-        pass  # TODO
+    def dft_recursive(self, starting_vertex, visited=set()):
+        visited.add(starting_vertex)
+        print(starting_vertex)
+        neighbors = self.get_neighbors(starting_vertex)
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                self.dft_recursive(neighbor, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -92,8 +93,9 @@ class Graph:
             if curr_node == goal_vertex:
                 return curr_path
             if curr_node not in visited:
+                neighbors = self.get_neighbors(curr_node)
                 visited.add(curr_node)
-                for neighbor in self.vertices[curr_node]:
+                for neighbor in neighbors:
                     new_path = list(curr_path)  # make a copy of the current path
                     new_path.append(neighbor)
                     stack.append(new_path)
