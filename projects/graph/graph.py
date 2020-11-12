@@ -2,8 +2,7 @@ from collections import deque
 
 
 class Graph:
-    """Represent a graph as a dictionary of vertices mapping labels to edges."""
-
+    # Represent a graph as a dictionary of vertices mapping labels to edges.
     def __init__(self):
         self.vertices = {}
 
@@ -13,7 +12,7 @@ class Graph:
     def add_vertex(self, vertex_id):
         self.vertices[vertex_id] = set()
 
-    # Remove vertex from graph and any incoming edges to it
+    # Remove vertex from a graph and any incoming edges to it
     def remove_vertex(self, vertex_id):
         if vertex_id not in self.vertices:
             print("Attempting to remove non-existent vertex")
@@ -28,14 +27,14 @@ class Graph:
             return
         self.vertices[from_vertex_id].discard(to_vertex_id)
 
-    # Adds a directed edge from from_vertex_id to to_vertex_id
+    # Adds a directed edge from "from_vertex_id" to "to_vertex_id"
     def add_edge(self, from_vertex_id, to_vertex_id):
         if from_vertex_id not in self.vertices or to_vertex_id not in self.vertices:
             print("Attempting to add edge to non-existing nodes")
             return
         self.vertices[from_vertex_id].add(to_vertex_id)
 
-    # Returns all outgoing edges from vertex_id
+    # Returns all outgoing edges from "vertex_id"
     def get_neighbors(self, vertex_id):
         return self.vertices[vertex_id]
 
@@ -74,12 +73,21 @@ class Graph:
                 self.dft_recursive(neighbor, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing the shortest path from
-        starting_vertex to destination_vertex in
-        breath-first order.
-        """
-        pass  # TODO
+        visited = set()
+        queue = deque()
+        queue.append([starting_vertex])
+        while len(queue) > 0:
+            curr_path = queue.popleft()
+            curr_node = curr_path[-1]
+            neighbors = self.get_neighbors(curr_node)
+            if curr_node == destination_vertex:
+                return curr_path
+            if curr_node not in visited:
+                visited.add(curr_node)
+                for neighbor in neighbors:
+                    new_path = list(curr_path)
+                    new_path.append(neighbor)
+                    queue.append(new_path)
 
     # Returns a path to the goal_vertex from starting_vertex
     def dfs(self, starting_vertex, goal_vertex):
@@ -100,15 +108,18 @@ class Graph:
                     new_path.append(neighbor)
                     stack.append(new_path)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing a path from
-        starting_vertex to destination_vertex in
-        depth-first order.
-
-        This should be done using recursion.
-        """
-        pass  # TODO
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=set(), path=[]):
+        visited.add(starting_vertex)
+        print(starting_vertex)
+        neighbors = self.get_neighbors(starting_vertex)
+        path = path + [starting_vertex]
+        if starting_vertex == destination_vertex:
+            return path
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                new_path = self.dfs_recursive(neighbor, destination_vertex, visited, path)
+                if new_path is not None:
+                    return new_path
 
 
 if __name__ == '__main__':
