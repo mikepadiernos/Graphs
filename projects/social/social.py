@@ -1,5 +1,6 @@
 import random
 import math
+from collections import deque
 
 
 class User:
@@ -76,9 +77,26 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
-        print(f"user_id: {user_id}")
+        # print(f"user_id: {user_id}")
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        # vertex = user
+        # edges = friends
+        stack = deque()
+        stack.append([user_id])
+        # print(f"queue: {stack}")
+        while len(stack) > 0:
+            cur_path = stack.pop()
+            cur_node = cur_path[-1]
+            if cur_node not in visited:
+                visited[cur_node] = cur_path
+                friends = self.friendships[cur_node]
+                print(f"friends: {friends}")
+                for friend in friends:
+                    new_path = cur_path.copy()
+                    new_path.append(friend)
+                    stack.append(new_path)
+
+        print(f"visited: {visited}")
         return visited
 
 
