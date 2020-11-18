@@ -21,13 +21,16 @@ def earliest_ancestor(ancestors, starting_node):
         elif cur_ancestor != starting_node:
             paths.append(cur_path)
 
-    if len(paths) > 0:
-        ancestor = paths[-1][-1]
-        for path in paths:
-            if len(path) == len(paths[-1]):
-                if ancestor > path[-1]:
-                    ancestor = path[-1]
+    # if len(paths) > 0:
+    #     ancestor = paths[-1][-1]
+    #     print(f"ancestor: {ancestor}")
+    #     for path in paths:
+    #         print(f"path: {path}")
+    #         if len(path) == len(paths[-1]):
+    #             if ancestor > path[-1]:
+    #                 ancestor = path[-1]
 
+    # print(paths)
     return ancestor
 
 
